@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Frank.FileHeaderCommand
+namespace Rosen.FileHeader
 {
     public class EditHeaderTemplateControl : UserControl
     {
@@ -15,7 +15,7 @@ namespace Frank.FileHeaderCommand
 
         private IContainer components = null;
 
-        private TextBox textBox1;
+        private TextBox _tbTemplate;
 
         public EditHeaderTemplateControl()
         {
@@ -24,17 +24,17 @@ namespace Frank.FileHeaderCommand
 
         public void Initialize()
         {
-            this.textBox1.Text = this.OptionsPage.FileHeaderTemplate;
+            this._tbTemplate.Text = this.OptionsPage.FileHeaderTemplate;
         }
 
-        private void textBox1_Leave(object sender, EventArgs e)
+        private void _tbTemplate_Leave(object sender, EventArgs e)
         {
-            this.OptionsPage.FileHeaderTemplate = this.textBox1.Text;
+            this.OptionsPage.FileHeaderTemplate = this._tbTemplate.Text;
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void _tbTemplate_TextChanged(object sender, EventArgs e)
         {
-            this.OptionsPage.FileHeaderTemplate = this.textBox1.Text;
+            this.OptionsPage.FileHeaderTemplate = this._tbTemplate.Text;
         }
 
         protected override void Dispose(bool disposing)
@@ -49,17 +49,17 @@ namespace Frank.FileHeaderCommand
 
         private void InitializeComponent()
         {
-            this.textBox1 = new TextBox();
+            this._tbTemplate = new TextBox();
             base.SuspendLayout();
-            this.textBox1.Location = new Point(3, 3);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new Size(403, 303);
-            this.textBox1.TabIndex = 0;
-            this.textBox1.TextChanged += new EventHandler(this.textBox1_TextChanged);
+            this._tbTemplate.Location = new Point(3, 3);
+            this._tbTemplate.Multiline = true;
+            this._tbTemplate.Name = "textBox1";
+            this._tbTemplate.Size = new Size(403, 303);
+            this._tbTemplate.TabIndex = 0;
+            this._tbTemplate.TextChanged += new EventHandler(this._tbTemplate_TextChanged);
             base.AutoScaleDimensions = new SizeF(6f, 13f);
             base.AutoScaleMode = AutoScaleMode.Font;
-            base.Controls.Add(this.textBox1);
+            base.Controls.Add(this._tbTemplate);
             base.Name = "TemplateControl";
             base.Size = new Size(478, 358);
             base.ResumeLayout(false);

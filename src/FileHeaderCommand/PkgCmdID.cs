@@ -2,7 +2,7 @@
 // MUST match PkgCmdID.h
 using System;
 
-namespace Frank.FileHeaderCommand
+namespace Rosen.FileHeader
 {
     static class PkgCmdIDList
     {

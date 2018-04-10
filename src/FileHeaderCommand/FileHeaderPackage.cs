@@ -10,7 +10,7 @@ using Microsoft.VisualStudio.OLE.Interop;
 using Microsoft.VisualStudio.Shell;
 using EnvDTE;
 
-namespace Frank.FileHeaderCommand
+namespace Rosen.FileHeader
 {
     /// <summary>
     /// This is the class that implements the package exposed by this assembly.
@@ -30,9 +30,9 @@ namespace Frank.FileHeaderCommand
     [InstalledProductRegistration("#110", "#112", "1.0", IconResourceID = 400)]
     // This attribute is needed to let the shell know that this package exposes some menus.
     [ProvideMenuResource("Menus.ctmenu", 1)]
-    [Guid(GuidList.guidFileHeaderCommandPkgString)]
+    [Guid(GuidList.guidFileHeaderPkgString)]
     [ProvideOptionPage(typeof(TemplateOptionPage), "FileHeader", "Template", 0, 0, true)]
-    public sealed class FileHeaderCommandPackage : Package
+    public sealed class FileHeaderPackage : Package
     {
         /// <summary>
         /// Default constructor of the package.
@@ -41,12 +41,10 @@ namespace Frank.FileHeaderCommand
         /// not sited yet inside Visual Studio environment. The place to do all the other 
         /// initialization is the Initialize method.
         /// </summary>
-        public FileHeaderCommandPackage()
+        public FileHeaderPackage()
         {
             Debug.WriteLine(string.Format(CultureInfo.CurrentCulture, "Entering constructor for: {0}", this.ToString()));
         }
-
-
 
         /////////////////////////////////////////////////////////////////////////////
         // Overridden Package Implementation
@@ -66,7 +64,7 @@ namespace Frank.FileHeaderCommand
             if (null != mcs)
             {
                 // Create the command for the menu item.
-                CommandID menuCommandID = new CommandID(GuidList.guidFileHeaderCommandCmdSet, (int)PkgCmdIDList.cmdidMyCommand);
+                CommandID menuCommandID = new CommandID(GuidList.guidFileHeaderCmdSet, (int)PkgCmdIDList.cmdidMyCommand);
                 MenuCommand menuItem = new MenuCommand(MenuItemCallback, menuCommandID);
                 mcs.AddCommand(menuItem);
             }
@@ -87,7 +85,7 @@ namespace Frank.FileHeaderCommand
             //    Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(uiShell.ShowMessageBox(
             //               0,
             //               ref clsid,
-            //               "FileHeaderCommand",
+            //               "FileHeader",
             //               string.Format(CultureInfo.CurrentCulture, "Inside {0}.MenuItemCallback()", this.ToString()),
             //               string.Empty,
             //               0,

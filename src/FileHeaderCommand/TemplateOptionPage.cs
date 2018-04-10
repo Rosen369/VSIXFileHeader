@@ -8,12 +8,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Frank.FileHeaderCommand
+namespace Rosen.FileHeader
 {
     [ClassInterface(ClassInterfaceType.AutoDual), ComVisible(true)]
     public class TemplateOptionPage : DialogPage
     {
-        [Category("Frank"), Description("文件头模板"), DisplayName("文件头模板")]
+        [Category("FileHeader"), Description("File Header Template"), DisplayName("Template")]
         public string FileHeaderTemplate
         {
             get;
@@ -34,7 +34,7 @@ namespace Frank.FileHeaderCommand
 
         public TemplateOptionPage()
         {
-            this.FileHeaderTemplate = "/*******************************************************\r\n * \r\n * \r\n * 文件名:$FileName$ \r\n * 作者：Frank\r\n * 创建日期：$Today$\r\n * 说明：此文件只包含一个类，具体内容见类型注释。$end$\r\n * 运行环境：.NET 4.0\r\n * 版本号：1.0.0\r\n * \r\n * 历史记录：\r\n * 创建文件 Frank $Now$\r\n * \r\n*******************************************************/\r\n\r\n";
+            this.FileHeaderTemplate = "/*******************************************************\r\n * \r\n * \r\n * FileName:$FileName$ \r\n * Author：Frank\r\n * CreateDate：$Today$\r\n * Description：此文件只包含一个类，具体内容见类型注释。$end$\r\n * Runtime：.NET 4.0\r\n * Version：1.0.0\r\n * \r\n * History：\r\n * CreateFile Frank $Now$\r\n * \r\n*******************************************************/\r\n\r\n";
         }
     }
 }

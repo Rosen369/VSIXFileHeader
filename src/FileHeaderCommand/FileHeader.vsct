@@ -25,7 +25,7 @@
 
   <!--The Commands section is where we the commands, menus and menu groups are defined.
       This section uses a Guid to identify the package that provides the command defined inside it. -->
-  <Commands package="guidFileHeaderCommandPkg">
+  <Commands package="guidFileHeaderPkg">
     <!-- Inside this section we have different sub-sections: one for the menus, another  
     for the menu groups, one for the buttons (the actual commands), one for the combos 
     and the last one for the bitmaps used. Each element is identified by a command id that  
@@ -41,7 +41,7 @@
          must be a menu. -->
     <Groups>
 
-      <Group guid="guidFileHeaderCommandCmdSet" id="MyMenuGroup" priority="0x0600">
+      <Group guid="guidFileHeaderCmdSet" id="MyMenuGroup" priority="0x0600">
         <Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_TOOLS"/>
       </Group>
       
@@ -61,8 +61,8 @@
               <CommandFlag>DynamicVisibility</CommandFlag>
           If you do not want an image next to your command, remove the Icon node /> -->
 
-      <Button guid="guidFileHeaderCommandCmdSet" id="cmdidMyCommand" priority="0x0100" type="Button">
-        <Parent guid="guidFileHeaderCommandCmdSet" id="MyMenuGroup" />
+      <Button guid="guidFileHeaderCmdSet" id="cmdidMyCommand" priority="0x0100" type="Button">
+        <Parent guid="guidFileHeaderCmdSet" id="MyMenuGroup" />
         <Icon guid="guidImages" id="bmpPic1" />
         <Strings>
           <ButtonText>FileHeader</ButtonText>
@@ -92,10 +92,10 @@
 
   <Symbols>
     <!-- This is the package guid. -->
-    <GuidSymbol name="guidFileHeaderCommandPkg" value="{759f6e22-b65f-4835-9131-a3a6b622c77c}" />
+    <GuidSymbol name="guidFileHeaderPkg" value="{759f6e22-b65f-4835-9131-a3a6b622c77c}" />
     
     <!-- This is the guid used to group the menu commands together -->
-    <GuidSymbol name="guidFileHeaderCommandCmdSet" value="{225d276d-e9a8-46c6-bb4f-6c6b82c821ce}">
+    <GuidSymbol name="guidFileHeaderCmdSet" value="{225d276d-e9a8-46c6-bb4f-6c6b82c821ce}">
 
       <IDSymbol name="MyMenuGroup" value="0x1020" />
       <IDSymbol name="cmdidMyCommand" value="0x0100" />
