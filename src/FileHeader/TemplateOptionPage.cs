@@ -34,7 +34,22 @@ namespace Rosen.FileHeader
 
         public TemplateOptionPage()
         {
-            this.FileHeaderTemplate = "/*******************************************************\r\n * \r\n * \r\n * FileName:$FileName$ \r\n * Author：Frank\r\n * CreateDate：$Today$\r\n * Description：This file contains only one class, for more details see type comments. $end$\r\n * Runtime：.NET 4.7\r\n * Version：1.0.0\r\n * \r\n * History：\r\n * CreateFile Frank $Now$\r\n * \r\n*******************************************************/\r\n\r\n";
+            this.FileHeaderTemplate = @"
+/*******************************************************\r\n
+* \r\n
+* \r\n
+* FileName:$FileName$ \r\n
+* Author：Frank\r\n
+* CreateDate：$CreateTime$\r\n
+* Description：This file contains only one class, for more details see type comments. $end$\r\n
+* Runtime：.NET 4.7\r\n
+* Version：1.0.0\r\n
+* \r\n
+* History：\r\n
+* CreateFile Frank $CreateTime$\r\n
+* \r\n
+*******************************************************/\r\n
+\r\n";
         }
     }
 }

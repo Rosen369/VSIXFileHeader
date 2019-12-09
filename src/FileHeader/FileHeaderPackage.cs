@@ -9,6 +9,7 @@ using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.OLE.Interop;
 using Microsoft.VisualStudio.Shell;
 using EnvDTE;
+using System.IO;
 
 namespace Rosen.FileHeader
 {
@@ -78,51 +79,60 @@ namespace Rosen.FileHeader
         /// </summary>
         private void MenuItemCallback(object sender, EventArgs e)
         {
-            //    // Show a Message Box to prove we were here
-            //    IVsUIShell uiShell = (IVsUIShell)GetService(typeof(SVsUIShell));
-            //    Guid clsid = Guid.Empty;
-            //    int result;
-            //    Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(uiShell.ShowMessageBox(
-            //               0,
-            //               ref clsid,
-            //               "FileHeader",
-            //               string.Format(CultureInfo.CurrentCulture, "Inside {0}.MenuItemCallback()", this.ToString()),
-            //               string.Empty,
-            //               0,
-            //               OLEMSGBUTTON.OLEMSGBUTTON_OK,
-            //               OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST,
-            //               OLEMSGICON.OLEMSGICON_INFO,
-            //               0,        // false
-            //               out result));
-            DTE dTE = (DTE)base.GetService(typeof(DTE));
-            Document activeDocument = dTE.ActiveDocument;
-            if (activeDocument != null)
+            var dTE = base.GetService(typeof(DTE)) as DTE;
+            var activeDocument = dTE.ActiveDocument;
+            if (activeDocument == null)
             {
-                TextSelection textSelection = activeDocument.Selection as TextSelection;
-                if (textSelection != null)
-                {
-                    int absoluteCharOffset = textSelection.ActivePoint.AbsoluteCharOffset;
-                    textSelection.SelectAll();
-                    string text = textSelection.Text;
-                    textSelection.MoveToAbsoluteOffset(absoluteCharOffset, false);
-                    var templateOptionPage = GetDialogPage(typeof(TemplateOptionPage)) as TemplateOptionPage;
-                    string template = templateOptionPage.FileHeaderTemplate;
-                    string nowStr = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
-                    string todayStr = DateTime.Now.ToString("yyyy/MM/dd");
-                    var fileName = activeDocument.Name;
-                    template = template.Replace("$Now$", nowStr).Replace("$Today$", todayStr).Replace("$FileName$", fileName);
-                    textSelection.StartOfDocument(false);
-                    textSelection.Insert(template, 1);
-                    textSelection.StartOfDocument(false);
-                    textSelection.FindText("$end$", 0);
-                    textSelection.Delete(1);
-                }
+                return;
             }
+
+            var textSelection = activeDocument.Selection as TextSelection;
+            if (textSelection == null)
+            {
+                return;
+            }
+
+            int absoluteCharOffset = textSelection.ActivePoint.AbsoluteCharOffset;
+            textSelection.SelectAll();
+            string text = textSelection.Text;
+            textSelection.MoveToAbsoluteOffset(absoluteCharOffset, false);
+
+            var template = this.ReplaceTemplate(activeDocument);
+
+            textSelection.StartOfDocument(false);
+            textSelection.Insert(template, 1);
+            textSelection.StartOfDocument(false);
+            textSelection.FindText("$end$", 0);
+            textSelection.Delete(1);
+
+
         }
 
-        //internal DialogPage GetDialogPage(Type dialogPageType)
-        //{
-        //    return base.GetDialogPage(dialogPageType);
-        //}
+        private string ReplaceTemplate(Document document)
+        {
+            var templateOptionPage = GetDialogPage(typeof(TemplateOptionPage)) as TemplateOptionPage;
+            var template = templateOptionPage.FileHeaderTemplate;
+            var nowStr = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
+            var todayStr = DateTime.Now.ToString("yyyy/MM/dd");
+            var fileCreateTime = this.GetCreateDateByPath(document.FullName);
+
+            var fileName = document.Name;
+            template = template
+                .Replace("$Now$", nowStr)
+                .Replace("$Today$", todayStr)
+                .Replace("$FileName$", fileName)
+                .Replace("$CreateTime$", fileCreateTime);
+
+            return template;
+        }
+
+        private string GetCreateDateByPath(string path)
+        {
+            if (!File.Exists(path))
+            {
+                return string.Empty;
+            }
+            return File.GetCreationTime(path).ToString("yyyy/MM/dd HH:mm:ss");
+        }
     }
 }
