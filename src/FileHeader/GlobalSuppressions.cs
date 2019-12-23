@@ -7,5 +7,3 @@
 // Error List, point to "Suppress Message(s)", and click "In Project
 // Suppression File". You do not need to add suppressions to this
 // file manually.
-
-[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1017:MarkAssembliesWithComVisible")]

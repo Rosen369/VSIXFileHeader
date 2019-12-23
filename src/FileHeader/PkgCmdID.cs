@@ -1,11 +1,17 @@
 ﻿// PkgCmdID.cs
 // MUST match PkgCmdID.h
-using System;
-
 namespace Rosen.FileHeader
 {
-    static class PkgCmdIDList
+    using System;
+
+    /// <summary>
+    /// PkgCmdIDList.
+    /// </summary>
+    public static class PkgCmdID
     {
-        public const uint cmdidMyCommand = 0x100;
-    };
+        /// <summary>
+        /// CmdidMyCommand.
+        /// </summary>
+        public const uint CmdidMyCommand = 0x100;
+    }
 }
